@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>61-封装缓动动画-改变透明度</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #box{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">往右走</button>
+<button id="btn1">往左走</button>
+<div id="box"></div>
+
+<script>
+    window.onload = function()
+    {
+        ///定义变量
+        var box = $("box");
+
+        //1. 监听按钮点击
+        $("btn").onclick = function()
+        {
+            buffer($("box"), {"opacity" : 0.1, "left" : 800, "top" : 400}, function()
+            {
+                buffer($("box"), {"left" : 200, "width" : 250, "top" : 200, "opacity" : 1});
+            });
+        };
+
+        $("btn1").onclick = function()
+        {
+            buffer($("box"), {"height" : 400});
+        };
+    };
+
+    /**
+     *
+     *
+     * */
+    function buffer(obj, json, fn)
+    {
+        //1.1清除定时器
+        clearInterval(obj.timer);
+
+        //1.2 设置定时器
+        var begin = 0, target = 0, speed = 0;
+
+        obj.timer = setInterval(function()
+        {
+            //判断是否所有属性都修改完毕
+            var flag = true;
+
+            for(var key in json)
+            {
+                //1.2.0 获取初始值
+                if("opacity" === key)
+                {
+                    begin = Math.round(parseFloat(getCssAttrValue(obj, key)) * 100) || 100;
+                    target = parseInt(json[key] * 100);
+                }
+                else
+                {
+                    begin = parseInt(getCssAttrValue(obj, key)) || 0;
+                    target = parseInt(json[key]);
+                }
+
+                //1.2.1 求出步长
+                speed = (target - begin) *0.2;
+                //1.2.2 判断是否向上取整
+                speed = (target > begin) ? Math.ceil(speed) : Math.floor(speed);
+
+                //1.2.3 将步长作用到盒子的left中
+                if("opacity" === key)
+                {
+                    //改变透明度
+                    //w3c
+                    obj.style.opacity = (begin + speed) / 100;
+                    //ie浏览器
+                    obj.style.filter = 'alpha(opacity : '+ (begin + speed) +')';
+                }
+                else
+                {
+                    //其他属性
+                    obj.style[key] = begin + speed + 'px';
+                }
+                obj.innerText = begin;
+
+                //1.2.4 判断
+                /*if(begin === target)
+                {
+                    clearInterval(obj.timer);
+                    begin = target;
+                }*/
+                if(begin === target === 0)
+                {
+                    flag = true;
+                }
+                else if(begin !== target)
+                {
+                    flag = false;
+                }
+            }
+
+            if(flag)
+            {
+                clearInterval(obj.timer);
+
+                //判断是否有回调函数
+                if(fn)
+                {
+                    fn();
+                }
+            }
+        }, 20);
+    }
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    /**
+     * 获取css样式直
+     * @param {object}obj
+     * @param {string}attr
+     * @returns {*}
+     */
+    function getCssAttrValue(obj, attr)
+    {
+        if(obj.currentStyle)
+        {
+            //ie和opera
+            return obj.currentStyle[attr];
+        }
+        else
+        {
+            return window.getComputedStyle(obj, null)[attr];
+        }
+    }
+</script>
+</body>
+</html>

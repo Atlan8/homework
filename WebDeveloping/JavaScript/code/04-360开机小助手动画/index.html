@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>360开机小助手提示动画</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #box{
+            position: fixed;
+            right: 0;
+            bottom: 0;
+        }
+        #close{
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            /*background-color: red;*/
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <span id="close"></span>
+    <div id="top">
+        <img src="images/top.jpg" alt=""/>
+    </div>
+    <div id="bottom">
+        <img src="images/bottom.jpg" alt=""/>
+    </div>
+</div>
+
+<script>
+    window.onload = function()
+    {
+        //获取标签
+        var box = $("box");
+        var top = $("top");
+        var bottom = $("bottom");
+        var close = $("close");
+
+        //2. 监听点击
+        close.onclick = function()
+        {
+            buffer(bottom, {"height" : 0}, function()
+            {
+                buffer(box, {"width" : 0}, function()
+                {
+                    close.style.display = "none";
+                });
+            });
+        };
+    };
+
+    function buffer(obj, json, fn)
+    {
+        //1.1清除定时器
+        clearInterval(obj.timer);
+
+        //1.2 设置定时器
+        var begin = 0, target = 0, speed = 0;
+
+        obj.timer = setInterval(function()
+        {
+            //判断是否所有属性都修改完毕
+            var flag = true;
+
+            for(var key in json)
+            {
+                //1.2.0 获取初始值
+                if("opacity" === key)
+                {
+                    begin = Math.round(parseFloat(getCssAttrValue(obj, key)) * 100) || 100;
+                    target = parseInt(json[key] * 100);
+                }
+                else
+                {
+                    begin = parseInt(getCssAttrValue(obj, key)) || 0;
+                    target = parseInt(json[key]);
+                }
+
+                //1.2.1 求出步长
+                speed = (target - begin) *0.2;
+                //1.2.2 判断是否向上取整
+                speed = (target > begin) ? Math.ceil(speed) : Math.floor(speed);
+
+                //1.2.3 将步长作用到盒子的left中
+                if("opacity" === key)
+                {
+                    //改变透明度
+                    //w3c
+                    obj.style.opacity = (begin + speed) / 100;
+                    //ie浏览器
+                    obj.style.filter = 'alpha(opacity : '+ (begin + speed) +')';
+                }
+                else
+                {
+                    //其他属性
+                    obj.style[key] = begin + speed + 'px';
+                }
+//                obj.innerText = begin;
+
+                //1.2.4 判断
+                /*if(begin === target)
+                 {
+                 clearInterval(obj.timer);
+                 begin = target;
+                 }*/
+                if(begin === target === 0)
+                {
+                    flag = true;
+                }
+                else if(begin !== target)
+                {
+                    flag = false;
+                }
+            }
+
+            if(flag)
+            {
+                clearInterval(obj.timer);
+
+                //判断是否有回调函数
+                if(fn)
+                {
+                    fn();
+                }
+            }
+        }, 20);
+    }
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    /**
+     * 获取css样式直
+     * @param {object}obj
+     * @param {string}attr
+     * @returns {*}
+     */
+    function getCssAttrValue(obj, attr)
+    {
+        if(obj.currentStyle)
+        {
+            //ie和opera
+            return obj.currentStyle[attr];
+        }
+        else
+        {
+            return window.getComputedStyle(obj, null)[attr];
+        }
+    }
+</script>
+</body>
+</html>

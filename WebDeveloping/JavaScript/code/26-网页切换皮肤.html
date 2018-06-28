@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>26-网页切换皮肤</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        body{
+            background: url("images/skin/skin01.jpg") no-repeat;
+            background-size: cover;
+        }
+        #box{
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.5);
+
+        }
+        #box ul{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+        }
+        #box ul li img{
+            width: 180px;
+            height: 120px;
+            margin: 10px 0; /*上下间距*/
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="images/skin/skin01.jpg" alt=""/></li>
+        <li><img src="images/skin/skin02.jpg" alt=""/></li>
+        <li><img src="images/skin/skin03.jpg" alt=""/></li>
+        <li><img src="images/skin/skin04.jpg" alt=""/></li>
+        <li><img src="images/skin/skin05.jpg" alt=""/></li>
+    </ul>
+</div>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取标签
+        var box = document.getElementById("box");
+        var allLi = box.getElementsByTagName("li");
+
+        //2. 遍历监听鼠标
+        for(var i = 0; i < allLi.length; i++)
+        {
+            //2.1 获取单个标签
+            var sLi = allLi[i];
+            sLi.index = i + 1;
+            //2.2 绑定事件
+            sLi.onclick = function()
+            {
+                document.body.style.background = 'url("images/skin/skin0' + this.index + '.jpg") no-repeat';
+            };
+        };
+
+    };
+</script>
+</body>
+</html>

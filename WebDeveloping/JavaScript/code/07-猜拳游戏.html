@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<script>
+    //剪刀石头布
+	//0-剪刀 1-石头 2-布
+	
+	//1. 定义变量 玩家和电脑
+	var player,computer;
+	//2. 电脑出拳，用随机数实现
+	computer = Math.floor(Math.random() * 3);
+	//3. 玩家输入相应的数字
+	player = Number(window.prompt("请出拳：0-剪刀 1-石头 2-布"));
+	//4. 判断结果
+	if(player < 0 || player > 3)
+	{
+	    window.prompt("您的输入有误，请重新出拳：0-剪刀 1-石头 2-布");
+	}
+	
+	
+	    if(
+		    (player == 0 && computer == 2) ||
+			(player == 1 && computer == 0) ||
+			(player == 2 && computer == 1)
+		)
+		{
+		    alert("恭喜，您赢了！");
+		}
+		else if(
+		    (player == 2 && computer == 0) ||
+			(player == 0 && computer == 1) ||
+			(player == 1 && computer == 2)
+		)
+		{
+		    alert("很遗憾，您输了！");
+		}
+		else
+		{
+		    alert("平局");
+		}
+	
+	
+</script>
+</body>

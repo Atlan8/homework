@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>34-上传图片认证</title>
+</head>
+<body>
+<label>上传图片的格式认证：</label>
+<input type="file" id="file"/>
+<script>
+    /*
+     * jpg png gif
+     * */
+    window.onload = function()
+    {
+        //1. 获取标签
+        var file = document.getElementById("file");
+        //2. 监听作用域的变化
+        file.onchange = function()
+        {
+            //2.1 获取上传的图片的路径
+            var path = this.value;
+            //截取
+            var suffix = path.substr(path.lastIndexOf('.'));
+            //2.3 统一转成小写
+            var lower_suffix = suffix.toLowerCase();
+
+            //2.4 判断
+            if(lower_suffix === '.jpg' || lower_suffix ==='.png' || lower_suffix ==='.jpeg' || lower_suffix ==='gif')
+            {
+                alert("上传图片格式正确！");
+            }
+            else
+            {
+                alert("上传图片格式不正确！");
+            }
+
+        };
+    }
+</script>
+</body>
+</html>

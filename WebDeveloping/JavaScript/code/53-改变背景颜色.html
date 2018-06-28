@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>53-改变背景颜色</title>
+</head>
+<body>
+
+<script>
+    window.onload = function()
+    {
+        var bgColor;
+        change();
+        window.onresize = change;
+
+        function change() {
+            if (client().width >= 960) {
+                bgColor = 'red';
+            }
+            else if (client().width >= 600 && client().width < 960) {
+                bgColor = 'blue';
+            }
+            else {
+                bgColor = 'green';
+            }
+            document.body.style.backgroundColor = bgColor
+        }
+        console.log(client().width);
+    };
+
+    function client()
+    {
+        if(window.innerWidth)
+        {
+            //ie9+ 最新浏览器
+            return{
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }
+        else if(document.compatMode ==="CSS1Compat")
+        {
+            //w3c标准
+            return{
+                width: document.documentElement.clientWidth,
+                height: document.documentElement.clientHeight
+            };
+        }
+
+        return{
+            width: document.body.clientWidth,
+            height: document.body.clientHeight
+        };
+    }
+</script>
+</body>
+</html>

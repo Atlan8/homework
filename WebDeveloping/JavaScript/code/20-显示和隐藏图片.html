@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>20-显示和隐藏图片</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+
+        img,fieldset{ border:0 none; display:block;}
+
+        div{
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        div img{
+            height: 400px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <button id="button">隐藏</button>
+    <p></p>
+    <img id="icon" src="images/photowall01.jpg" alt=""/>
+
+</div>
+<script>
+    window.onload = function ()
+    {
+        //1. 获取事件源和操作元素
+        var button = document.getElementById("button");
+        var icon = document.getElementById("icon");
+
+        //事件绑定
+        button.onclick = function ()
+        {
+            //事件驱动程序
+            if(button.innerText === "隐藏")
+            {
+                icon.style.display = "none";
+                button.innerText = "显示";
+            }
+            else if(button.innerText === "显示")
+            {
+                icon.style.display = "inline";
+                button.innerText = "隐藏";
+            }
+
+        };
+
+
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>111-3D播放器</title>
+    <style type="text/css">
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: url("images/xinhuan/xinhuan0.jpg") no-repeat;
+            background-size: cover;
+            overflow: hidden;
+        }
+        ul{
+            width: 200px;
+            height: 200px;
+            /*background-color: red;*/
+            position: absolute;
+            bottom: 100px;
+            left: 30%;
+            margin-left: -100px;
+            transform-style: preserve-3d;
+            /*transform: rotateX(-10deg);*/
+            animation: sport 12s linear 0s infinite normal;
+        }
+        ul li{
+            list-style: none;
+            width: 200px;
+            height: 200px;
+            font-size: 60px;
+            text-align: center;
+            line-height: 200px;
+            position: absolute;
+            background-color: black;
+        }
+        ul li:nth-child(1){
+            /*background-color: green;*/
+            transform: rotateY(60deg) translateZ(200px);
+        }
+        ul li:nth-child(2){
+            /*background-color: blue;*/
+            transform: rotateY(120deg) translateZ(200px);
+        }
+        ul li:nth-child(3){
+            /*background-color: yellow;*/
+            transform: rotateY(180deg) translateZ(200px);
+        }
+        ul li:nth-child(4){
+            /*background-color: pink;*/
+            transform: rotateY(240deg) translateZ(200px);
+        }
+        ul li:nth-child(5){
+            /*background-color: purple;*/
+            transform: rotateY(300deg) translateZ(200px);
+        }
+        ul li:nth-child(6){
+            /*background-color: gold;*/
+            transform: rotateY(360deg) translateZ(200px);
+        }
+        ul li img{
+            width: 200px;
+            height: 200px;
+            border: 5px solid skyblue;
+            box-sizing: border-box;
+        }
+        ul:hover{
+            animation-play-state: paused;
+        }
+        ul:hover li img{
+            opacity: 0.5;
+        }
+        ul li:hover img{
+            opacity: 1;
+        }
+        .heart{
+            width: 175px;
+            height: 175px;
+            position: absolute;
+            left: 0px;
+            top: 200px;
+            animation: move 10s linear 0s infinite normal;
+        }
+        @keyframes sport{
+            from{
+                transform: rotateX(-10deg) rotateY(0deg);
+            }
+            to{
+                transform: rotateX(-10deg) rotateY(360deg);
+            }
+        }
+        @keyframes move{
+            0%{
+                left: 0px;
+                top: 200px;
+                opacity: 1;
+            }
+            20%{
+                left: 300px;
+                top: 100px;
+                opacity: 0;
+            }
+            40%{
+                left: 500px;
+                top: 0px;
+                opacity: 1;
+            }
+            60%{
+                left: 900px;
+                top: 150px;
+                opacity: 0;
+            }
+            80%{
+                left: 1400px;
+                top: 300px;
+                opacity: 1;
+            }
+            100%{
+                left: 300px;
+                top: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><img src="images/xinhuan/xinhuan1.jpg" alt=""/></li>
+    <li><img src="images/xinhuan/xinhuan2.jpg" alt=""/></li>
+    <li><img src="images/xinhuan/xinhuan3.jpg" alt=""/></li>
+    <li><img src="images/xinhuan/xinhuan4.jpg" alt=""/></li>
+    <li><img src="images/xinhuan/xinhuan5.jpg" alt=""/></li>
+    <li><img src="images/xinhuan/xinhuan6.jpg" alt=""/></li>
+</ul>
+<img src="images/xinhuan/xinhuan7.jpg" alt="" class="heart"/>
+<audio src="images/xinhuan/恋爱循环.mp3" autoplay="autoplay" loop="loop"></audio>
+</body>
+</html>

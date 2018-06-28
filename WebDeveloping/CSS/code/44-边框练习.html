@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>44-边框练习</title>
+    <style type="text/css">
+        div{
+            width: 100px;
+            height: 100px;
+        }
+        .box1{
+            border: 5px solid black;
+        }
+        .box2{
+            border-width: 5px;
+            border-style: solid;
+            border-color: red green blue purple;
+        }
+        .box3{
+            border: 5px solid red;
+            border-right: 5px dashed red;
+        }
+        .box4{
+            /*border-width: 5px;
+            border-style: solid dashed;
+            border-color: red;*/
+            border: 5px solid red;
+            border-style: solid dashed;
+        }
+        .box5{
+            border: 5px solid #000;
+            border-bottom: none;/*将某一条边的值设为none，就会有去掉该条边的效果*/
+        }
+        .box6{
+            width: 0px;
+            height: 0px;
+            border-width: 25px;
+            border-style: solid;
+            border-color: red white blue white;
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+<div class="box1"></div>
+<hr>
+<div class="box2"></div>
+<hr>
+<div class="box3"></div>
+<hr>
+<div class="box4"></div>
+<hr>
+<div class="box5"></div>
+<hr>
+<div class="box6"></div>
+</body>
+</html>

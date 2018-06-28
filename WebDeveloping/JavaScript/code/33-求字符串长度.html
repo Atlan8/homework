@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>33-求字符串长度</title>
+</head>
+<body>
+<script>
+    window.onload = function()
+    {
+        var str = 'Hello World!';
+        var str1 = '你好，世界！';
+        var str2 = 'hello, 我是文字！';
+
+        getStrLength(str2);
+
+        /*
+        * 获取字符串的长度
+        * @param [string]str
+        * @return [number]
+        * */
+        function getStrLength(str)
+        {
+            //定义变量
+            var len = 0, code = 0;
+
+            //遍历
+            for(var i = 0; i < str.length; i++)
+            {
+                //2.1 获取每个字符的unicode码
+                code = str.charCodeAt(i);
+
+                //2.2 判断
+                if(code >= 0 && code <= 127)
+                {
+                    //为英文字符
+//                    console.log('this is an letter');
+                    len = len + 1;
+                }
+                else
+                {
+                    //为汉字
+//                    console.log('this is a Chinese Character');
+                    len = len + 2;
+                }
+            }
+            //返回长度
+            console.log('该字符串的长度为：'+ len + '个字节');
+        }
+
+    }
+
+</script>
+</body>
+</html>

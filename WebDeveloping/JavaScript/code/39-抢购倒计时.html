@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>39-抢购倒计时</title>
+    <style type="text/css">
+        #time{
+            font-size: 40px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="time"></div>
+<script>
+    window.onload = function()
+    {
+        //1. 获取需要的标签
+        var time = document.getElementById("time");
+
+        //2. 自定义将来的时间
+        var nextDate = new Date('2018/06/01 00:00:00');
+
+        //3. 开启定时器
+        setInterval(timeLose, 1000);
+
+        function timeLose()
+        {
+            //3.1 获取现在的时间
+            var currentDate = new Date();
+
+            //3.2 获取时间戳，通过毫秒的形式将将来的时间换取出来
+            var currentTime = currentDate.getTime();
+            var nextTime = nextDate.getTime();
+
+            //3.3 计算剩下的时间
+            var allTime = nextTime - currentTime;
+
+            //3.4 把毫秒换算成秒 四舍五入取整
+            var allSecond = parseInt(allTime / 1000);
+
+            //3.5 转换成天数
+            var day = size(parseInt(allSecond / 3600 / 24));
+            //3.6 转换成小时
+            var hours = size(parseInt(allSecond / 3600 % 24));
+            //3.7 转换成分钟
+            var minute = size(parseInt(allSecond / 60 % 60));
+            var second = size(parseInt(allSecond % 60));
+
+            time.innerText = '距离儿童节还有' + day + '天' + hours + '小时' + minute + '分钟' + second + '秒';
+        }
+
+        /*
+        * 如果数小于10，则在其前面添加一个0
+        * */
+        function size(num)
+        {
+            return num >= 10 ? num : '0' + num;
+        }
+
+    }
+</script>
+</body>
+</html>

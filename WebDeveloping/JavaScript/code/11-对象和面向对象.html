@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>11-对象和面向对象</title>
+</head>
+<body>
+<script type="text/html">
+    //用构造函数产生对象
+    function Person()
+    {
+        var obj = new Object();
+        //属性
+        obj.name = null;
+        obj.age = null;
+        obj.sex = null;
+
+        //方法
+        obj.study = function ()
+        {
+            console.log(this.name + "在学习");
+        };
+
+        obj.sleep = function ()
+        {
+            console.log(this.name + "在睡觉");
+        };
+
+        return obj;
+    }
+
+    var p1 = Person();
+    p1.name = "张三";
+    p1.age = 18;
+    p1.sex = "男";
+
+    console.log(p1);
+    p1.study();
+</script>
+<script type="text/html">
+    //现在常用的对象创建方式
+    function Dog(name, age, dogFriengs)
+    {
+        //属性
+        this.name = name;
+        this.age = age;
+        this.dogFriengs = dogFriengs;
+
+        //方法
+        this.eat = function (someThing)
+        {
+            console.log(this.name + "正在吃" + someThing);
+        };
+
+        this.run = function (someWhere)
+        {
+            console.log(this.name + "在" + someWhere + "跑步");
+        };
+    }
+
+    var smallDog = new Dog("小花", 1);
+    smallDog.eat("狗粮");
+    console.log(smallDog);
+</script>
+<script>
+    //改进对象创建方式 prototype(原型)
+    //构造函数
+    function Dog(option)
+    {
+        this._init(option);
+        //属性
+        /*this.name = option.name;
+        this.age = option.age;
+        this.dogFriends = option.dogFriends;*/
+
+        //方法
+        /*this.eat = function (someThing)
+        {
+            console.log(this.name + "正在吃" + someThing);
+        };
+        this.run = function(someWhere)
+        {
+            console.log(this.name + "在" + someWhere + "跑步");
+        };*/
+    }
+
+    //类似于公共库，每个对象调用即可，不用另外开辟内存存储，优化内存使用
+    Dog.prototype = {
+        _init: function(option)
+        {
+            //属性
+            this.name = option.name;
+            this.age = option.age;
+            this.dogFriends = option.dogFriends;
+        },
+
+        eat: function (someThing) //键值对表达
+        {
+            console.log(this.name + "正在吃" + someThing);
+        },
+        run: function (someWhere)
+        {
+            console.log(this.name + "在" + someWhere + "跑步");
+        }
+    }
+
+    var smallDog = new Dog({name: "小花", age: 1});
+    smallDog.eat("狗粮");
+    console.log(smallDog);
+
+    var bigDog = new Dog({name: "大黄", age: 3});
+    bigDog.run("中心公园");
+
+    console.log(smallDog === bigDog);
+    console.log(smallDog.eat === bigDog.eat);
+
+
+</script>
+</body>
+</html>

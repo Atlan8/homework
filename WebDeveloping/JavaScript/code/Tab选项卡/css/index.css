@@ -1,0 +1,79 @@
+body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+ol,ul{ list-style:none;}
+img,fieldset{ border:0 none; display:block;}
+
+a{
+    text-decoration: none;
+    color: #000000;
+}
+
+#tab{
+    width: 498px;
+    height: 120px;
+    border: 1px solid #cccccc;
+    margin: 100px auto;
+
+    overflow: hidden;
+}
+#tab_header{
+    background-color: #e8e8e8;
+    height: 28px;
+    line-height: 28px;  /*将文字上下居中显示*/
+}
+#tab_header ul{
+    width: 500px;
+    /*display: flex;    /*这段代码与下面通过li标签修改的代码效果相同*
+    justify-content: space-around;
+    align-items: center;*/
+}
+#tab_header ul li{
+    float: left;
+    width: 98px;
+    text-align: center;
+    /*先占满*/
+    padding: 0 1px;
+    border-bottom: 1px solid #cccccc;
+
+    cursor: pointer;
+}
+#tab_header ul li.selected{
+    background-color: #ffffff;
+    border-bottom: none;
+
+    /*左右线条*/
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    padding: 0;
+}
+#tab_header ul li:nth-child(1){
+    border-left: none;
+}
+#tab_header ul li:nth-last-child{
+    border-right: none;
+}
+#tab_header ul li:hover{
+    font-weight: bolder;
+    color: orange;
+}
+
+/*内容区域*/
+#tab_content{
+
+}
+#tab_content .dom{
+    padding: 20px;
+    padding-left: 18px;
+    display: none;
+}
+#tab_content .dom ul li{
+    float: left;
+    width: 220px;
+    text-align: center;
+    margin: 5px;
+}
+#tab_content .dom ul li a:hover{
+    color: orange;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/html">
+    //选择排序
+    var temp, a, b,  c;
+
+    a = Number(window.prompt("请输入第一个数"));
+    b = Number(window.prompt("请输入第二个数"));
+    c = Number(window.prompt("请输入第三个数"));
+
+    if(a > b)
+    {
+        temp = a;
+        a = b;
+        b = temp;
+    }
+    if(a > c)
+    {
+        temp = a;
+        a = c;
+        c = temp;
+    }
+    if(b > c)
+    {
+        temp = b;
+        b = c;
+        c = temp;
+    }
+
+    console.log(a, b, c);
+</script>//选择排序
+<script>
+    //冒泡排序
+    var temp, a, b, c;
+
+    a = Number(window.prompt("请输入第一个数"));
+    b = Number(window.prompt("请输入第二个数"));
+    c = Number(window.prompt("请输入第三个数"));
+
+    if( a > b)
+    {
+        temp = a;
+        a = b;
+        b = temp;
+    }
+    if(b > c)
+    {
+        temp = b;
+        b = c;
+        c = temp;
+    }
+    if(a > b)
+    {
+        temp = a;
+        a = b;
+        b = temp;
+    }
+    console.log(a, b, c);
+</script>
+</body>
+</html>

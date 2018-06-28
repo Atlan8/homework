@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>59-动态创建元素属性</title>
+    <style type="text/css">
+        body, div, ol, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, p, form, fieldset, legend, input {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-size: 100%;
+            font-weight: normal;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        img, fieldset {
+            border: 0 none;
+            display: block;
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+
+            /*position: absolute;*/
+        }
+    </style>
+</head>
+<body>
+<button id="btn1">改变颜色</button>
+<button id="btn2">改变长度</button>
+<div id="box"></div>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取标签
+        var btn1 = $('btn1');
+        var btn2 = $("btn2");
+        var box = $("box");
+
+
+        //2. 定义变量
+        var h = "height";
+        var bgc = 'backgroundColor';
+        //3. 监听按钮点击
+        btn1.onclick = function () {
+//            box.style.backgroundColor = "blue";
+            changeCssStyle(box, "background", "blue");
+        };
+
+        btn2.onclick = function()
+        {
+//            box.style.width = 500 + 'px';
+            changeCssStyle(box, "width", "500px");
+        };
+    };
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    /**
+     * 改变样式
+     * @param {object} obj
+     * @param {string} attribute
+     * @param {string} value
+     */
+    function changeCssStyle(obj, attribute, value)
+    {
+        obj.style[attribute] = value;
+    }
+
+    /**
+     * 获取css样式直
+     * @param {object}obj
+     * @param {string}attr
+     * @returns {*}
+     */
+    function getCssAttrValue(obj, attr)
+    {
+        if(obj.currentStyle)
+        {
+            //ie和opera
+            return obj.currentStyle[attr];
+        }
+        else
+        {
+            return window.getComputedStyle(obj, null)[attr];
+        }
+    }
+</script>
+</body>
+</html>

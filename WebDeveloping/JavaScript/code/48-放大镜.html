@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>48-放大镜</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #box{
+            width: 400px;
+            height: 240px;
+            background-color: red;
+            margin: 100px 0 0 100px;
+            position: relative;
+        }
+
+        #small_box{
+            width: 100%;
+            height: 100%;
+            border: 1px solid #cccccc;
+            position: relative;
+        }
+
+        #small_box img{
+            width: 400px;
+            height: 240px;
+        }
+
+        #mask{
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255, 255, 0, 0.4);
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: move;
+
+            display: none;
+        }
+
+        #big_box{
+            width: 800px;
+            height: 480px;
+            border: 1px solid #cccccc;
+            overflow: hidden;
+            position: absolute;
+            left: 410px;
+            top: 0;
+
+            display: none;
+        }
+        #big_box img{
+            width: 800px;
+            height: 480px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        #list{
+            margin: 10px 0 0 100px;
+        }
+        #list img{
+            margin: 5px;
+            width: 100px;
+            height: 60px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="small_box">
+        <img src="images/mask/house.jpg" alt=""/>
+        <span id="mask"></span>
+    </div>
+    <div id="big_box">
+        <img src="images/mask/house.jpg" alt=""/>
+    </div>
+</div>
+<div id="list">
+    <img src="images/mask/house.jpg" alt=""/>
+    <img src="images/mask/lake.jpg" alt=""/>
+    <img src="images/mask/meadow.jpg" alt=""/>
+</div>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取需要的标签
+        var box = document.getElementById("box");
+        var small_box = box.children[0];
+        var big_box = box.children[1];
+        var mask = small_box.children[1];
+        var big_img = big_box.children[0];
+        var list_img = document.getElementById("list").children;
+
+        //2. 监听鼠标进入小盒子
+        small_box.onmouseover = function()
+        {
+            //2.1 把隐藏的内容显示出来
+            mask.style.display = 'block';
+            big_box.style.display = 'block';
+
+            //2.2 监听鼠标移动
+            small_box.onmousemove = function(event)
+            {
+                //2.2.1 引入事件对象
+                var e = event || window.event;
+
+                //2.2.2 求出鼠标的坐标
+                var pointX = event.clientX - small_box.offsetParent.offsetLeft - mask.offsetWidth * 0.5;//让光标在小盒子居中
+                var pointY = event.clientY - small_box.offsetParent.offsetTop - mask.offsetHeight * 0.5;
+
+                //2.2.3 边界检测
+                if(pointX < 0)
+                {
+                    pointX = 0;
+                }
+                else if(pointX >= small_box.offsetWidth - mask.offsetWidth)
+                {
+                    pointX = small_box.offsetWidth - mask.offsetWidth;
+                }
+
+                if(pointY < 0)
+                {
+                    pointY = 0;
+                }
+                else if(pointY >= small_box.offsetHeight - mask.offsetHeight)
+                {
+                    pointY = small_box.offsetHeight - mask.offsetHeight;
+                }
+
+                //2.2.4 让放大镜动起来
+                mask.style.left = pointX + 'px';
+                mask.style.top = pointY + 'px';
+
+                //2.2.5 让大图动起来
+                /*
+                * smallX / bigX = smallWidth / bigWidth
+                * bigX = smallX / (smallWidth / bigWidth)
+                * */
+                big_img.style.left = -pointX / (small_box.offsetWidth / big_box.offsetWidth) + 'px';
+                big_img.style.top = -pointY / (small_box.offsetHeight / big_box.offsetHeight) + 'px';
+
+            };
+        };
+
+        //3. 监听鼠标进入小盒子
+        small_box.onmouseout = function()
+        {
+            mask.style.display = 'none';
+            big_box.style.display = 'none';
+        };
+
+        //4. 遍历列表
+        for(var i = 0; i < list_img.length; i++)
+        {
+            (function(i)
+            {
+                var img = list_img[i];
+                img.onmouseover = function()
+                {
+//                  small_box.children[0].src = "images/"  //图片切换
+                };
+            })(i);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>41-长图滚动效果</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #box{
+            width: 750px;
+            height: 190px;
+            border: 1px solid red;
+            margin: 100px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        #picture{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #to_left, #to_right{
+            width: 50%;
+            height: 100%;
+            /*background-color: red;*/
+            position: absolute;
+
+            top: 0;
+            cursor: pointer;
+        }
+        #to_left{
+            left: 0;
+        }
+        #to_right{
+            right: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <img id="picture" src="images/bg-clouds.png" alt=""/>
+    <span id="to_left"></span>
+    <span id="to_right"></span>
+</div>
+<script>
+    window.onload = function()
+    {
+        //1. 获取标签
+        var box = document.getElementById("box");
+        var picture = document.getElementById("picture");
+        var to_left = document.getElementById("to_left");
+        var to_right = document.getElementById("to_right");
+
+        var timer = null, num = 0;
+
+        //2. 监听鼠标事件
+        to_left.onmouseover = function()
+        {
+            //2.1 清除定时器
+            clearInterval(timer);
+
+            //2.2 设置定时器
+            timer = setInterval(function()
+            {
+                //步长
+                num = num - 5;
+
+                //判断
+                if(num >= -1497)
+                {
+                    picture.style.left = num + 'px';
+                }
+                else
+                {
+                    clearInterval(timer);
+                }
+            }, 20);
+        };
+        to_right.onmousemove = function()
+        {
+            //2.1 清除定时器
+            clearInterval(timer);
+
+            //2.2 设置定时器
+            timer = setInterval(function()
+            {
+                //步长
+                num = num + 5;
+
+                //判断
+                if(num <= 0)
+                {
+                    picture.style.left = num + 'px';
+                }
+                else
+                {
+                    clearInterval(timer);
+                }
+            }, 20);
+        };
+        box.onmouseout = function()
+        {
+            clearInterval(timer);
+        };
+
+    };
+</script>
+</body>
+</html>

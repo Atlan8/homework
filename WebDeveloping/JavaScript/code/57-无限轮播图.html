@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>57-无限轮播图</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #slider{
+            width: 650px;
+            height: 350px;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            margin: 100px auto;
+
+            position: relative;
+        }
+        #top{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        #top ul{
+            width: 3250px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #ul li{
+            width: 650px;
+            height: 350px;
+            float: left;
+        }
+        #ul img{
+            width: 650px;
+            height: 350px;
+        }
+
+        #slider ol{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        #slider ol li{
+            width: 20px;
+            height: 20px;
+            background-color: darkgray;
+            display: inline-block;
+            margin-right: 3px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #slider ol li.current{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="slider">
+    <div id="top">
+        <ul id="ul">
+            <li><img src="images/taobao01.jpg" alt=""/></li>
+            <li><img src="images/taobao02.jpg" alt=""/></li>
+            <li><img src="images/taobao03.jpg" alt=""/></li>
+            <li><img src="images/taobao04.jpg" alt=""/></li>
+        </ul>
+        <ol id="ol">
+
+        </ol>
+    </div>
+</div>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取需要的标签
+        var lis = $("ul").children;
+
+        var currentIndex = 0, indicatorIndex = 0;
+
+        //2. 克隆li标签
+        $("ul").appendChild(lis[0].cloneNode(true));
+
+        //3. 动态创建页码 减少一个
+        for(var i = 0; i < lis.length - 1; i++)
+        {
+            var li = document.createElement("li");
+            $("ol").appendChild(li);
+        }
+
+        //4. 设置第一个被选中
+        $("ol").children[0].className = "current";
+
+        //5. 监听鼠标进入圆点
+        var olLis = $("ol").children;
+        for(var j = 0; j < olLis.length; j++)
+        {
+            (function(j)
+            {
+                //5.1 单独获取li标签
+                var olLi = olLis[j];
+
+                //5.2 监听鼠标进入
+                olLi.onmouseover = function()
+                {
+                    for(var i = 0; i < olLis.length; i++)
+                    {
+                        olLis[i].className = '';
+                    }
+
+                    this.className = "current";
+
+                    //5.3 动起来
+                    contant($("ul"), -(650 * j), 100);
+
+                    currentIndex = j;
+                    indicatorIndex = j;
+                }
+            })(j);
+        }
+
+        //6. 实现自动轮播
+        var timer = setInterval(autoPlay, 1500);
+
+        //7. 清除和设置定时器
+        $("slider").onmouseover = function()
+        {
+            clearInterval(timer);
+        };
+        $("slider").onmouseout = function()
+        {
+            timer = setInterval(autoPlay, 1000);
+        };
+    };
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    function contant(ele, target, speed)
+    {
+        //1. 清除定时器
+        clearInterval(ele.timer);
+
+        //2. 判断方向
+        var dir = ele.offsetLeft < target ? speed : -speed;
+
+        //2. 设置定时器
+        ele.timer = setInterval(function()
+        {
+            ele.style.left = ele.offsetLeft + dir + 'px';
+            console.log(ele.offsetLeft);
+            if(Math.abs(target - ele.offsetLeft) < Math.abs(dir))
+            {
+                clearInterval(ele.timer);
+
+                ele.style.left = target + 'px';
+            }
+        }, 20);
+    }
+
+    function autoPlay()
+    {
+        //6.1 ul滚起来
+        currentIndex++;
+        if(currentIndex > lis.length - 1)
+        {
+            $("ul").style.left = 0;
+            currentIndex = 1;
+        }
+        contant($("ul"), -currentIndex * 650, 100);
+
+        //6.2 指示器滚起来
+        indicatorIndex ++;
+        if(indicatorIndex > olLis.length - 1)
+        {
+            indicatorIndex = 0;
+        }
+        for(var i = 0; i < olLis.length; i++)
+        {
+            olLis[i].className = '';
+        }
+
+        olLis[indicatorIndex].className = "current";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>18-DOM节点操作</title>
+    <style type="text/css">
+        #box{
+            width: 600px;
+            height: 600px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <button class="btn">按钮</button>
+    <span id="span">
+        <a href="#">百度一下</a>
+    </span>
+    <p class="mt">我是MT</p>
+    <div id="word">我是文字</div>
+</div>
+<script type="text/html">
+    window.onload = function ()
+    {
+        //增删改查
+
+        //1. 获取标签
+        //var box = document.getElementById("box");
+
+        //2. 增加节点
+        /*var img = document.createElement("img");
+        img.src = "images/photowall03.jpg";
+        box.appendChild(img); //插入到盒子的最后一个元素的后面*/
+
+        //3. 删除节点
+        var div = document.getElementById("word");
+        div.remove();
+    };
+</script>
+<script type="text/html">
+    window.onload = function ()
+    {
+        //复制节点 新节点 = 要复制的节点.cloneNode(参数); //参数可选复制节点
+        //1. 获取目标元素
+        var box = document.getElementById("box");
+        //2. 创建新节点
+        var newTag = box.cloneNode(true);
+        console.log(newTag);
+
+        //3. 插入到body中
+        document.body.appendChild(newTag);
+    };
+</script>
+<script>
+    window.onload = function ()
+    {
+        //获取属性
+        var btn = document.getElementsByTagName("button")[0]; //获取标签名
+
+        console.log(btn.getAttribute("class")); //输出类名
+    };
+</script>
+</body>
+</html>

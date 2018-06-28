@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>31-表单验证-优化版</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #prompt{
+            font-size: 13px;
+            color: darkgray;
+        }
+        #score{
+            border: 1px solid darkgray;
+        }
+        .right{
+            color: lightgreen !important;
+        }
+        .error{
+            color: red !important;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <label>您的成绩：</label>
+    <input id="score" type="text" placeholder="请输入0~100的数字..."/>
+    <span id="prompt">请输入您的成绩！</span>
+</div>
+<script>
+    window.onload = function()
+    {
+        //1. 获取标签，当输入框失去焦点时开始判断
+        $('score').onblur = function()
+        {
+            //1.1 获取输入框
+            var value = parseFloat($("score").value);
+
+            //1.2 验证
+            if(isNaN(value))
+            {
+                //不是一个数
+                dealStyle('输入成绩不正确！', 'error', 'red');
+            }
+            else if(value >= 0 && value <= 100)
+            {
+                //是一个合法的数
+                dealStyle('输入成绩正确！', 'right', 'lightgreen');
+            }
+            else
+            {
+                //超出范围
+                dealStyle('请输入0~100的数！', 'error', 'red');
+            }
+        };
+
+        //2. 当input标签获得焦点时
+        $('score').onfocus = function ()
+        {
+            /*$('prompt').innerText = "请输入您的成绩！";
+            $('prompt').className = "";
+            $('score').style.borderColor = "darkgray";*/
+            dealStyle('请输入您的成绩！', '', 'darkgray');
+            $('score').value = "";
+        }
+    };
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    function dealStyle(msg, className, color)
+    {
+        /*
+        * 处理公共样式
+        * @param [string]msg
+        * @param [string]className
+        * @param [string]color
+        * */
+        $('prompt').innerText = msg;
+        $('prompt').className = className;
+        $('prompt').style.borderColor = color;
+    }
+</script>
+</body>
+</html>

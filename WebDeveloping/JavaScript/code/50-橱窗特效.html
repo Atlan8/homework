@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>50-橱窗特效</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #box{
+            width: 1000px;
+            height: 320px;
+            border: 1px solid #cccccc;
+
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        #box ul{
+            width: 3200px;
+            height: 300px;
+            position: absolute;
+        }
+        #box_top li{
+            float: left;
+
+        }
+        #box_top li img{
+            width: 200px;
+            height: 100%;
+        }
+        #box_bottom{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background-color: #e8e8e8;
+
+            width: 100%;
+            height: 20px;
+        }
+        #box_bottom .mask{
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            height: 20px;
+            background-color: orange;
+
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul id="box_top">
+        <li><img src="images/window/1.jpg" alt=""/></li>
+        <li><img src="images/window/2.jpg" alt=""/></li>
+        <li><img src="images/window/3.jpg" alt=""/></li>
+        <li><img src="images/window/4.jpg" alt=""/></li>
+        <li><img src="images/window/5.jpg" alt=""/></li>
+        <li><img src="images/window/6.jpg" alt=""/></li>
+        <li><img src="images/window/7.jpg" alt=""/></li>
+        <li><img src="images/window/8.jpg" alt=""/></li>
+        <li><img src="images/window/9.jpg" alt=""/></li>
+        <li><img src="images/window/10.jpg" alt=""/></li>
+        <li><img src="images/window/1.jpg" alt=""/></li>
+        <li><img src="images/window/2.jpg" alt=""/></li>
+        <li><img src="images/window/3.jpg" alt=""/></li>
+        <li><img src="images/window/4.jpg" alt=""/></li>
+        <li><img src="images/window/5.jpg" alt=""/></li>
+        <li><img src="images/window/6.jpg" alt=""/></li>
+    </ul>
+    <div id="box_bottom">
+        <span class="mask"></span>
+    </div>
+</div>
+<script>
+    window.onload = function()
+    {
+        //1. 获取标签
+        var box = $("box");
+        var box_top = $("box_top");
+        var box_bottom = $("box_bottom");
+        var mask = box_bottom.children[0];
+
+        //2. 设置滚动条的长度
+        //滚动条的长度 = (盒子的宽度 / 内容的宽度) * 盒子的宽度
+        var mask_length = box.offsetWidth * box.offsetWidth / box_top.offsetWidth;
+        /*console.log(maskLength);
+        console.log(mask);*/
+        mask.style.width = mask_length + 'px';
+
+        //3. 鼠标操作
+        mask.onmousedown = function(event)
+        {
+            var e = event || window.event;
+
+            //3.1 求出初始值
+            var beginX = e.clientX - mask.offsetLeft;
+
+            //3.2 移动
+            document.onmousemove = function(event)
+            {
+                var e = event || window.event;
+
+                //3.2.1 求出移动的距离
+                var endX = e.clientX - beginX;
+
+                //3.2.2 边界值处理
+                if(endX < 0)
+                {
+                    endX = 0;
+                }
+                else if(endX >= box.offsetWidth - mask.offsetWidth)
+                {
+                    endX = box.offsetWidth - mask.offsetWidth;
+                }
+
+                //3.2.3 动起来
+                mask.style.left = endX + 'px';
+
+                //3.2.4 内容动起来
+                //内容走的距离 = (内容的长度 - 盒子的长度) / (盒子的长度 - 滚动条的长度) * 滚动条走的距离
+                var content_len = (box_top.offsetWidth - box.offsetWidth) / (box.offsetWidth - mask.offsetWidth) * endX;
+                box_top.style.left = - content_len + 'px';
+
+                return false;
+            };
+
+            //3.3 鼠标松开则删除move
+            document.onmouseup = function()
+            {
+                document.onmousemove = null;
+            };
+        };
+    };
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+</script>
+</body>
+</html>

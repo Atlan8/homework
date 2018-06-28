@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>43-简单轮播图</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+        #box{
+            width: 322px;
+            height: 250px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+
+            position: relative;
+        }
+        .left, .right{
+            width: 60px;
+            height: 250px;
+            /*background-color: red;*/
+            float: left;
+        }
+        .center{
+            width: 200px;
+            height: 250px;
+            float: left;
+            border-left: 1px solid #cccccc;
+            border-right: 1px solid #cccccc;
+            overflow: hidden;
+
+        }
+        .center a img{
+            width: 200px;
+            height: 250px;
+        }
+        li{
+            line-height: 27px;
+            text-align: center;
+            border-bottom: 1px solid #cccccc;
+        }
+        .left li:last-child, .right li:last-child{
+            border-bottom: none;
+        }
+        .current{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul class="left">
+        <li class="current"><a href="#">美食1</a></li>
+        <li><a href="#">美食2</a></li>
+        <li><a href="#">美食3</a></li>
+        <li><a href="#">美食4</a></li>
+        <li><a href="#">美食5</a></li>
+        <li><a href="#">美食6</a></li>
+        <li><a href="#">美食7</a></li>
+        <li><a href="#">美食8</a></li>
+        <li><a href="#">美食9</a></li>
+    </ul>
+    <div class="center">
+        <a href="#"><img src="images/images01/4.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/2.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/3.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/8.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/11.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/12.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/13.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/16.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/17.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/18.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/19.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/20.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/21.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/22.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/23.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/24.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/25.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/27.jpg" alt=""/></a>
+        <a href="#"><img src="images/images01/29.jpg" alt=""/></a>
+    </div>
+    <ul class="right">
+        <li><a href="#">美食10</a></li>
+        <li><a href="#">美食11</a></li>
+        <li><a href="#">美食12</a></li>
+        <li><a href="#">美食13</a></li>
+        <li><a href="#">美食14</a></li>
+        <li><a href="#">美食15</a></li>
+        <li><a href="#">美食16</a></li>
+        <li><a href="#">美食17</a></li>
+        <li><a href="#">美食18</a></li>
+    </ul>
+</div>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取需要的标签
+        var allLis = document.getElementsByTagName("li");
+        var allImages = document.getElementsByTagName("img");
+
+        //2. 索引
+        var loop = 0;
+        var timer = null;
+
+        //3. 定时器
+        timer = setInterval(function()
+        {
+            //3.1 索引自增
+            loop++;
+            loop %= 18
+            //3.2 排他
+            for(var i = 0; i < allLis.length; i++)
+            {
+                allLis[i].className = '';
+                allImages[i].style.display = 'none';
+            }
+            //3.3 自己选中
+            allLis[loop].className = 'current';
+            allImages[loop].style.display = 'block';
+        }, 1000);
+    };
+</script>
+</body>
+</html>

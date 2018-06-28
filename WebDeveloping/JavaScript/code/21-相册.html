@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>21-相册</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        div{
+            width: 540px;
+            margin: 0 auto;
+            margin-top: 100px;
+
+        }
+        div img{
+            width: 540px;
+            height: 324px;
+        }
+        ul li a img{
+            width: 100px;
+            height: 60px;
+        }
+        div ul{
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        ul li{
+            float: left;
+        }
+        div p{
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p id="des">房子</p>
+    <img id="big_img" src="images/house.jpg" alt=""/>
+    <ul id="landscape">
+        <li>
+            <a href="images/house.jpg" title="房子">
+                <img src="images/house.jpg" alt="房子"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/lake.jpg" title="湖面">
+                <img src="images/lake.jpg" alt="湖面"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/meadow.jpg" title="草地">
+                <img src="images/meadow.jpg" alt="草地"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/moon.jpg" title="月亮">
+                <img src="images/moon.jpg" alt="月亮"/>
+            </a>
+        </li>
+        <li>
+            <a href="images/road.jpg" title="林间小路">
+                <img src="images/road.jpg" alt="林间小路"/>
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    window.onload = function ()
+    {
+        //1. 获取需要的标签
+        var ul = document.getElementById("landscape");
+        var aList = ul.getElementsByTagName("a");
+
+        var des = document.getElementById("des");
+        var big_img = document.getElementById("big_img");
+
+        //2. 绑定事件
+        for(var i = 0; i < aList.length; i++)
+        {
+            aList[i].onclick = function ()
+            {
+                /*点击当前图片，则将当前图片以及描述传到大窗口中*/
+                big_img.src = this.href;
+                des.innerText = this.title;
+
+                /*console.log(this.href);
+                console.log(this.title);*/
+                return false;  //当点击图片后，停留在当前页面
+            }
+        }
+    }
+</script>
+</body>
+</html>

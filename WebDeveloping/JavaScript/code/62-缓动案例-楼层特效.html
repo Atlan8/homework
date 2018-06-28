@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>62-缓动案例-楼层特效</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        html, body, ul{
+            width: 100%;
+            height: 100%;
+        }
+        #ul li{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 30px;
+            /*background-color: red;*/
+            color: white;
+        }
+        #ol{
+            width: 70px;
+            background-color: #cccccc;
+            position: fixed;
+            left: 50px;
+            top: 30%;
+            border: 1px solid #ffffff;
+            border-bottom: none;
+        }
+        #ol li{
+            line-height: 30px;
+            text-align: center;
+            border-bottom: 1px solid #ffffff;
+            color: white;
+            cursor: pointer;
+        }
+        #ol li.current{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+<!--GPS-->
+<ol id="ol">
+    <li class="current">第1层</li>
+    <li>第2层</li>
+    <li>第3层</li>
+    <li>第4层</li>
+    <li>第5层</li>
+</ol>
+<!--楼层-->
+<ul id="ul">
+    <li>第1层内容</li>
+    <li>第2层内容</li>
+    <li>第3层内容</li>
+    <li>第4层内容</li>
+    <li>第5层内容</li>
+</ul>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取需要的标签
+        var ol = $("ol");
+        var ul = $("ul");
+        var olLis = ol.children;
+        var ulLis = ul.children;
+
+        var isClick = false;
+
+        //2. 上色
+        var colorArr = ["purple", "red", "green", "blue", "yellow"];
+        for(var i = 0; i < colorArr.length; i++)
+        {
+            ulLis[i].style.backgroundColor = colorArr[i];
+        }
+
+        //3. 监听GPS点击
+        for(var j = 0; j < olLis.length; j++)
+        {
+            (function(index)
+            {
+                var olLi = olLis[index];
+
+                //3.1 点击切换
+                olLi.onclick = function()
+                {
+                    isClick = true;
+
+                    //3.1.1 排他思想，先将所有className设为空，再将当前的设为选中
+                    for(var i = 0; i < olLis.length; i++)
+                    {
+                        olLis[i].className = '';
+                    }
+                    this.className = "current";
+
+                    //3.1.2 让内容滚动起来
+                    //document.documentElement.scrollTop = index * client().height;
+                    buffer(document.documentElement, {"scrollTop" : index * client().height}, function()
+                    {
+                        //当点击执行完毕，将isClick置为false
+                        isClick = false;
+                    });
+                };
+            })(j)
+        }
+
+        //4. 监听滚动
+        window.onscroll = function()
+        {
+            if(!isClick)
+            {
+                //4.1 获取滚动产生的高度
+                var roll = Math.ceil(scroll().top);
+
+                //4.2 遍历olLis的长度
+                for(var i = 0; i < olLis.length; i++)
+                {
+                    //4.2.1 判断
+                    if(roll >= ulLis[i].offsetTop)
+                    {
+                        for(var j = 0; j < olLis.length; j++)
+                        {
+                            olLis[j].className = "";
+                        }
+                        olLis[i].className = "current";
+                    }
+                }
+            }
+        };
+    };
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    function client()
+    {
+        if(window.innerWidth)
+        {
+            //ie9+ 最新浏览器
+            return{
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }
+        else if(document.compatMode ==="CSS1Compat")
+        {
+            //w3c标准
+            return{
+                width: document.documentElement.clientWidth,
+                height: document.documentElement.clientHeight
+            };
+        }
+
+        return{
+            width: document.body.clientWidth,
+            height: document.body.clientHeight
+        };
+    }
+
+    function buffer(obj, json, fn)
+    {
+        //1.1清除定时器
+        clearInterval(obj.timer);
+
+        //1.2 设置定时器
+        var begin = 0, target = 0, speed = 0;
+
+        obj.timer = setInterval(function()
+        {
+            //判断是否所有属性都修改完毕
+            var flag = true;
+
+            for(var key in json)
+            {
+                //1.2.0 获取初始值
+                if("opacity" === key)
+                {
+                    begin = Math.round(parseFloat(getCssAttrValue(obj, key)) * 100) || 100;
+                    target = parseInt(json[key] * 100);
+                }
+                else if("scrollTop" === key)
+                {
+                    begin = Math.ceil(obj.scrollTop);
+                    target = parseInt(json[key]);
+                }
+                else
+                {
+                    begin = parseInt(getCssAttrValue(obj, key)) || 0;
+                    target = parseInt(json[key]);
+                }
+
+                //1.2.1 求出步长
+                speed = (target - begin) *0.2;
+                //1.2.2 判断是否向上取整
+                speed = (target > begin) ? Math.ceil(speed) : Math.floor(speed);
+
+                //1.2.3 将步长作用到盒子的left中
+                if("opacity" === key)
+                {
+                    //改变透明度
+                    //w3c
+                    obj.style.opacity = (begin + speed) / 100;
+                    //ie浏览器
+                    obj.style.filter = 'alpha(opacity : '+ (begin + speed) +')';
+                }
+                else if("scrollTop" === key)
+                {
+                    obj.scrollTop = begin + speed;
+                }
+                else
+                {
+                    //其他属性
+                    obj.style[key] = begin + speed + 'px';
+                }
+//                obj.innerText = begin;
+
+                //1.2.4 判断
+                /*if(begin === target)
+                 {
+                 clearInterval(obj.timer);
+                 begin = target;
+                 }*/
+                if(begin === target === 0)
+                {
+                    flag = true;
+                }
+                else if(begin !== target)
+                {
+                    flag = false;
+                }
+            }
+
+            if(flag)
+            {
+                clearInterval(obj.timer);
+
+                //判断是否有回调函数
+                if(fn)
+                {
+                    fn();
+                }
+            }
+        }, 20);
+    }
+
+    /**
+     * 获取css样式直
+     * @param {object}obj
+     * @param {string}attr
+     * @returns {*}
+     */
+    function getCssAttrValue(obj, attr)
+    {
+        if(obj.currentStyle)
+        {
+            //ie和opera
+            return obj.currentStyle[attr];
+        }
+        else
+        {
+            return window.getComputedStyle(obj, null)[attr];
+        }
+    }
+
+    /**
+     * 获取滚动的头部距离和左边距离
+     * scroll().top scroll().left
+     * @returns {*}
+     */
+    function scroll()
+    {
+        if(window.pageYOffset !== null)
+        {
+            //ie9+ 最新浏览器
+            return{
+                top: window.pageYOffset,
+                left: window.pageXOffset
+            };
+        }
+        else if(document.compatMode === "CSS1Compat")
+        {
+            //w3c
+            return {
+                top: document.documentElement.scrollTop,
+                left: document.documentElement.scrollLeft
+            };
+        }
+
+        return {
+            top: document.body.scrollTop,
+            left: document.body.scrollLeft
+        };
+    }
+</script>
+</body>
+</html>

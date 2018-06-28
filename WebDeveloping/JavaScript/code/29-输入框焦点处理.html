@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>29-输入框焦点处理</title>
+</head>
+<body>
+<input id="name" type="text" placeholder="请输入..."/>
+<script>
+    window.onload = function()
+    {
+        //1. 获取需要的焦点
+        var name = document.getElementById("name");
+
+        //2. 获得焦点
+        name.onfocus = function()
+        {
+            this.style.width = '600px';
+            this.style.height = '40px';
+            this.style.outline = 'none';
+        };
+
+        //3. 失去焦点
+        name.onblur = function()
+        {
+            this.style.border = '2px solid red';
+            this.style.color = 'red';
+
+        };
+    };
+</script>
+</body>
+</html>

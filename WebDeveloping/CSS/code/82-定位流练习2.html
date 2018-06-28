@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>82-定位流练习2</title>
+    <style tyoe="text/css">
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 520px;
+            height: 280px;
+            border: 2px solid gold;
+            margin: 0 auto;
+            margin-top: 100px;
+            position: relative;
+        }
+        div img{
+            width: 520px;
+
+        }
+        div span{
+            width: 40px;
+            height: 80px;
+            display: block;
+            background-color: rgba(0,0,0,0.2);
+            font-size: 50px;
+            color: white;
+            text-align: center;
+            line-height: 80px;
+        }
+        div .leftArrow{
+            position: absolute;
+            left: 0px;
+            top: 100px;
+        }
+        div .rightArrow{
+            position: absolute;
+            right: 0px;
+            top: 100px;
+        }
+
+        ol{
+            list-style: none;
+            width: 200px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        ol li{
+            float: left;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border: 1px solid #cccccc;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img src="images/taobao01.jpg" alt=""/>
+    <span class="leftArrow">&lt;</span>
+    <span class="rightArrow">&gt;</span>
+    <ol>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+</body>
+</html>

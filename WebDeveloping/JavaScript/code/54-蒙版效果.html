@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>54-蒙版效果</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        html, body, #box{
+            width: 100%;
+            height: 3000px;
+        }
+        #panel{
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.4;
+            /*设置灰度值，针对ie的兼容性*/
+            filter: alpha(opacity: 40);
+
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            display: none;
+        }
+
+        #login{
+            width: 300px;
+            height: 300px;
+            background-color: skyblue;
+            border-radius: 5px;
+
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-left: -150px;
+            margin-top: -150px;
+
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <button id="btn">立即登录</button>
+    <div id="panel"></div>
+    <div id="login"></div>
+</div>
+
+<script>
+    window.onload = function()
+    {
+        //1. 获取按钮
+        $("btn").onclick = function( event)
+        {
+            //1.0 阻止冒泡
+            if(event && event.stopPropagation)
+            {
+                event.stopPropagation();
+            }
+            else
+            {
+                window.event.cancelBubble = true;
+            }
+
+            //1.1 显示面板和蒙版
+            $("panel").style.display = 'block';
+            $("login").style.display = 'block';
+            $("btn").style.display = 'none';
+
+            //1.2 隐藏滚动条
+            document.body.style.overflow = 'hidden';
+        };
+
+        //2. 点击文档
+        document.onclick = function(event)
+        {
+            var e = event || window.event;
+
+            //2.1 获取点击的标签
+            var targetId = e.target ? e.target.id : e.srcElement.id;
+//            console.log(targetId);
+            //2.2 判断
+            if(targetId !== "login")
+            {
+                //1.1 隐藏面板和蒙版
+                $("panel").style.display = 'none';
+                $("login").style.display = 'none';
+                $("btn").style.display = 'block';
+
+                //1.2 显示滚动条
+                document.body.style.overflow = 'auto';
+
+            }
+            else
+            {
+                window.location.href = "https://www.google.com";
+            }
+        }
+    };
+
+    function $(id)
+    {
+        return typeof id === "string" ? document.getElementById(id) : null;
+    }
+
+    function client()
+    {
+        if(window.innerWidth)
+        {
+            //ie9+ 最新浏览器
+            return{
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }
+        else if(document.compatMode ==="CSS1Compat")
+        {
+            //w3c标准
+            return{
+                width: document.documentElement.clientWidth,
+                height: document.documentElement.clientHeight
+            };
+        }
+
+        return{
+            width: document.body.clientWidth,
+            height: document.body.clientHeight
+        };
+    }
+</script>
+</body>
+</html>

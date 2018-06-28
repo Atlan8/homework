@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/html">
+    //var res = 123&&'123';
+//    var res = null&&'abc';
+    //var res = false&&'abc';
+    /* && || 两个逻辑运算后面的结果是相反的。&&为真输出后面的，||为真输出前面的*/
+    //var res = false||'abc';
+    //var res = true||'abc';
+    var a,b;
+    b = (a=3,--a,a*5)
+    console.log(b);
+
+    (7>9)?alert('对的'):alert('错的');
+</script>
+<script>
+    //用户从键盘输入三个整数，找到最大值并输出
+
+    //1. 定义3个变量，接收用户输入的值
+    var num1,num2,num3;
+    //2. 利用prompt()接收用户输入的值
+    num1=Number(prompt('请输入第一个数：'));
+    num2=Number(prompt('请输入第二个数：'));
+    num3=Number(prompt('请输入第三个数：'));
+    //3. 定义变量保存最大值
+    var max;
+    //4. 利用三目运算符进行两两比较
+    max = (num1>num2)?num1:num2;
+    max = (max>num3)?max:num3;
+    //5. 输出结果
+    console.log(max);
+</script>
+</body>
+</html>

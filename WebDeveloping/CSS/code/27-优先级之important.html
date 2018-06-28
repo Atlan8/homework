@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>27-优先级之important</title>
+    <style type="text/css">
+        #identity{
+            color: red;
+        }
+        .para{
+            color: blue;
+        }
+        p{
+            color: green !important;
+        }
+        *{
+            color: blue ;
+        }
+        li{
+            color: cadetblue ;
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <li>
+        <p id="identity" class="para">我是段落</p>
+    </li>
+</ul>
+</body>
+</html>

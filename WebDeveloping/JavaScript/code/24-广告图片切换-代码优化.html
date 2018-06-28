@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>23-广告图片切换</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        #box{
+            width: 648px;
+            height: 50px;
+            border: 2px solid #cccccc;
+
+            padding-top: 350px;
+            margin: 100px auto;
+
+            background: url("images/taobao01.jpg") no-repeat;
+        }
+        ul{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+        }
+        ul li img{
+            width: 162px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li id="taobao01"><img src="images/taobao01.jpg" alt=""/></li>
+        <li id="taobao02"><img src="images/taobao02.jpg" alt=""/></li>
+        <li id="taobao03"><img src="images/taobao03.jpg" alt=""/></li>
+        <li id="taobao04"><img src="images/taobao04.jpg" alt=""/></li>
+    </ul>
+</div>
+
+<script>
+    window.onload = function ()
+    {
+        //1. 获取需要的标签
+       /* var taobao01 = document.getElementById("taobao01");
+        var taobao02 = document.getElementById("taobao02");
+        var taobao03 = document.getElementById("taobao03");
+        var taobao04 = document.getElementById("taobao04");
+        var box = document.getElementById("box");*/
+
+        //2. 监听鼠标进入
+        /*taobao01.onmousemove = function ()
+        {
+            box.style.background = 'url("images/taobao01.jpg") no-repeat';
+        };
+        taobao02.onmousemove = function ()
+        {
+            box.style.background = 'url("images/taobao02.jpg") no-repeat';
+            box.style.backgroundSize = "650px 350px";
+        };
+        taobao03.onmousemove = function ()
+        {
+            box.style.background = 'url("images/taobao03.jpg") no-repeat';
+            box.style.backgroundSize = "650px 350px";
+        };
+        taobao04.onmousemove = function ()
+        {
+            box.style.background = 'url("images/taobao04.jpg") no-repeat';
+            box.style.backgroundSize = "650px 350px";
+        };*/
+
+        /*
+         * 获取标签，根据id
+         * @param [string]id
+         * @returns {*}
+         * */
+        function $(id)
+        {
+            return typeof id === "string" ? document.getElementById(id) : null;
+        }
+
+        /*
+         *改变背景
+         * liId为img标签的id
+         * imgSrc为style中的url("...") no-repeat;
+         * 调用函数进行相应的值替换
+         * */
+        function changeImage(liId, imgSrc)
+        {
+            $(liId).onmouseover = function ()
+            {
+                $("box").style.background = imgSrc;
+                $("box").style.backgroundSize = "650px 350px";
+            };
+        }
+
+        changeImage("taobao01", 'url("images/taobao01.jpg") no-repeat');
+        changeImage("taobao02", 'url("images/taobao02.jpg") no-repeat');
+        changeImage("taobao03", 'url("images/taobao03.jpg") no-repeat');
+        changeImage("taobao04", 'url("images/taobao04.jpg") no-repeat');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>116-多重背景图片练习</title>
+    <style type="text/css">
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            width: 600px;
+            height: 190px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            background-image: url("images/bg-plane.png"), url("images/bg-sun.png"), url("images/bg-clouds.png");
+            background-repeat: no-repeat, no-repeat, no-repeat;
+            background-size: 50px 50px, 50px 50px, auto auto;
+            background-position: 50px 150px, 400px 50px, 0px 0px;
+            animation: move 10s linear 0s infinite normal;
+        }
+        @keyframes move {
+            from{
+                background-position: 50px 150px, 400px 50px, 0px 0px;
+            }
+            to{
+                background-position: 500px -150px, 400px 50px, -600px 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

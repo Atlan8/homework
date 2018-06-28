@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>44-星海特效</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+
+        body{
+            background-color: #000000;
+            overflow: hidden;
+        }
+        span{
+            width: 30px;
+            height: 30px;
+            background: url("images/clock/star.png") no-repeat;
+            position: absolute;
+            background-size: 100% 100%;
+            animation: flash 1s alternate infinite;
+        }
+        @keyframes flash {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        span:hover{
+            transform: scale(3, 3) rotate(180deg) !important;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+<!--<span></span>-->
+<script>
+    window.onload = function()
+    {
+        //1. 求出屏幕的尺寸
+        var screenW = document.documentElement.clientWidth;
+        var screenH = document.documentElement.clientHeight;
+
+        //2. 动态创建星星
+        for(var i = 0; i < 150; i++)
+        {
+            //2.1 创建星星
+            var span = document.createElement("span");
+            document.body.appendChild(span);
+
+            //2.2 随机坐标
+            var x = parseInt(Math.random() * screenW);
+            var y = parseInt(Math.random() * screenH);
+            span.style.left = x + 'px';
+            span.style.top = y + 'px';
+
+            //2.3 随机缩放
+            var scale = Math.random() *1.5;
+            span.style.transform = 'scale(' + scale + ' , ' + scale +')';
+
+            //2.4 控制频率
+            var rate = Math.random() * 1.5;
+            span.style.animationDelay = rate + 's';
+        }
+    }
+</script>
+</body>
+</html>

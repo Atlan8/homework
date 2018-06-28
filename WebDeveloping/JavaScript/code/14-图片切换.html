@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>14-图片切换</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+
+        img,fieldset{ border:0 none; display:block;}
+        div{
+            width: 300px;
+            height: 150px;
+        }
+        div img{
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <img id="logo" src="images/xinhuan/xinhuan2.jpg" alt=""/>
+</div>
+<script>
+    window.onload = function ()
+    {
+        //1. 获取需要的标签
+        var logo = document.querySelector("#logo");
+        //console.log(logo);
+
+        //2. 绑定事件
+        logo.onmouseover = function()
+        {
+            console.log("鼠标进入图片");
+            this.src = "images/xinhuan/xinhuan6.jpg";
+        };
+        logo.onmouseout = function ()
+        {
+            console.log("鼠标离开图片");
+            this.src = "images/xinhuan/xinhuan2.jpg";
+        };
+        logo.onmousemove = function()
+        {
+            console.log("鼠标在图片上移动");
+        };
+    }
+</script>
+</body>
+</html>

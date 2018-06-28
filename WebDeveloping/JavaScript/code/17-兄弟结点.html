@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>17-兄弟结点</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+
+        img,fieldset{ border:0 none; display:block;}
+        div{
+            width: 300px;
+            height: 150px;
+        }
+        div img{
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <h2>我是标题</h2>
+    <img id="logo" src="images/xinhuan/xinhuan2.jpg" alt=""/>
+    <p>我是内容</p>
+</div>
+
+<script type="text/html">
+    window.onload = function ()
+    {
+        var img = document.getElementById("logo");
+        //下一个
+        var dom = img.nextElementSibling || img.nextSibling;
+        //下一个
+        var previous = img.previousElementSibling || img.previousSibling;
+
+        console.log(dom);
+        console.log(previous);
+    };
+</script>
+<script type="text/html">
+    window.onload = function ()
+    {
+        var box = document.getElementById("box");
+        var dom = box.firstElementChild || box.firstChild;
+        console.log(dom);
+
+        //获取最后一个节点
+        var last = box.lastElementChild || box.lastChild;
+        console.log(last);
+    };
+</script>
+<script>
+    window.onload = function ()
+    {
+        /*var box = document.getElementById("box");
+        var nodeList = box.children;
+        console.log(nodeList);*/
+
+        //获取任意兄弟节点
+        var logo = document.getElementById("logo");
+        console.log(logo.parentNode.children[1]);
+    };
+</script>
+</body>
+</html>

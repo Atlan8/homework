@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>15-DOM基础-节点访问</title>
+    <style type="text/css">
+        div{
+            width: 200px;
+            height: 200px;
+        }
+        div span a{
+            text-decoration: none;
+            font-size: 12px;
+            color: #0435b2;
+        }
+    </style>
+</head>
+<body>
+<div class="id">
+    <button class="btn">按钮</button>
+    <span id="span">
+        <a href="#">百度一下</a>
+    </span>
+</div>
+
+<script>
+    //1. 通过盒子设置父盒子的背景颜色
+    window.onload = function ()
+    {
+        /*var span = document.getElementById("span");
+        var box = span.parentNode;
+        box.style.backgroundColor = "red";*/
+
+        //改进，加入事件
+        //点击按钮才会发生效果
+        var btn = document.getElementsByClassName("btn")[0];
+        btn.onclick = function ()
+        {
+            var span = document.getElementById("span");
+            var box = span.parentNode;
+            box.style.backgroundColor = "red";
+        };
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>30-parseInt数据取整</title>
+</head>
+<body>
+<script>
+    var num1 = 10.989;
+    var num2 = '10.99我是文字';
+
+    console.log(Math.ceil(num1)); //向上取整，结果为11
+    console.log(Math.floor(num1)); //向下取整，结果为10
+    console.log(Math.round(num1)); //四舍五入
+    console.log(parseInt(num2)); //找出数据中的数字并向下取整，如果是文字开头的数据则会返回NaN
+</script>
+</body>
+</html>

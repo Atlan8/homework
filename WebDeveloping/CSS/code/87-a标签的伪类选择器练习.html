@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>87-a标签的伪类选择器练习</title>
+    <style type="text/css">
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            width: 960px;
+            height: 40px;
+            background-color: #ccc;
+            margin: 100px auto;
+        }
+        ul li{
+            list-style: none;
+            width: 120px;
+            height: 40px;
+            float: left;
+            /*background-color: purple;*/
+            text-align: center;
+            line-height: 40px;
+        }
+        ul li a{
+            width: 120px;
+            height: 40px;
+            display: inline-block;
+        }
+        ul li a:link{
+            color: white;
+            text-decoration: none;
+        }
+        ul li a:visited{
+            color: white;
+        }
+        ul li a:hover{
+            color: white;
+            /*text-decoration: underline;*/
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        ul li a:active{
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+    <li><a href="#">我是导航</a></li>
+</ul>
+</body>
+</html>

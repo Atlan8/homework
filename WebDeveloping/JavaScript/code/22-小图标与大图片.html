@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>22-小图标与大图片</title>
+    <style type="text/css">
+        body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input{ margin:0; padding:0;}
+
+        h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+
+        ol,ul{ list-style:none;}
+        img,fieldset{ border:0 none; display:block;}
+        #e_coder{
+            width: 50px;
+            height: 50px;
+            border: 1px solid white;
+
+            background: url("images/icon_02.jpg") no-repeat;
+            background-size: 50px 50px;
+
+            position: fixed;
+            top: 40%;
+            left: 0;
+            /*当鼠标悬停在图片时，鼠标变成小手指*/
+            cursor: pointer;
+        }
+        #e_app{
+            position: absolute; /*子绝父相*/
+            left: 50px;
+            top: -75px;
+            /*隐藏*/
+            display: none;
+
+        }
+        #e_app img{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="e_coder">
+    <div id="e_app">
+        <img src="images/icon_01.jpg" alt="小图标"/>
+    </div>
+</div>
+
+<script>
+    window.onload = function ()
+    {
+        //1. 获取相应的标签
+        var e_coder = document.getElementById("e_coder");
+        var e_app = document.getElementById("e_app");
+
+        //2. 监听鼠标进入
+        e_coder.onmousemove = function ()
+        {
+            //2.1 改变盒子阴影
+            this.style.border = "10px solid red";
+            //2.2 显示图片
+            e_app.style.left = "70px";
+            e_app.style.display = "block";
+        };
+
+        //3. 监听鼠标的离开
+        e_coder.onmouseout = function ()
+        {
+            //3.1 改变盒子阴影
+            this.style.border = "0px solid red";
+            //3.2 隐藏图片
+            e_app.style.left = "50px";
+            e_app.style.display = "none";
+        };
+    };
+</script>
+</body>
+</html>
